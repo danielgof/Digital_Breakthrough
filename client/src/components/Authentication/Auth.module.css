@@ -1,0 +1,22 @@
+.form {
+	max-width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.navBar {
+	background-color: rgb(88, 88, 88);
+}
+
+.logo {
+	height: 40px;
+}
+
+.authBtn {
+	outline: none;
+	text-decoration: none;
+}
+
+.authBtn:hover {
+	
+}

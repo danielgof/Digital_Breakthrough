@@ -1,0 +1,9 @@
+
+const themeContext = {
+	light : {
+
+	},
+	dark : {
+
+	}
+}

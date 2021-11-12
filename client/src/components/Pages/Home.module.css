@@ -1,0 +1,14 @@
+.headerBg {
+	background: url('bg.png') no-repeat; /* Путь к фоновому изображению */
+	width: 100%;
+	height: 766px;
+}
+
+.headerRow {
+	height: 255px;
+}
+
+.headerText {
+	font-size: 48px; 
+	color: #ffffff;
+}
