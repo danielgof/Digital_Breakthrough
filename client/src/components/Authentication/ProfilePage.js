@@ -3,7 +3,7 @@ import ProfileNav from './ProfileNav'
 
 const ProfilePage = () => {
 	return (
-		<div className="container-fluid px-0">
+		<div className="container-fluid">
 			<div className="row">
 				<div className="col-auto">
 					<ProfileNav />

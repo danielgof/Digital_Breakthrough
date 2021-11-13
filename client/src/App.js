@@ -22,7 +22,7 @@ function App() {
 	return (
 		<BrowserRouter>
 			<LoginContext.Provider value={loginContext} >
-				<div className="App">
+				<div className="App mx-auto">
 					<Routes>
 						<Route path="/" 	end	 	element={<HomePage 		/>} />
 						<Route path="/login" 		element={<LoginPage		/>} />
