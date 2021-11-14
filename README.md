@@ -1,4 +1,4 @@
-# Vaz_2109
+# Digital Breakthrough
 
 ## Init projects
 ### server
@@ -48,9 +48,6 @@ ____
 <img src="https://render.githubusercontent.com/render/math?math=E_p=(P_1-P_2)%2B \delta P_p">
 где <img src="https://render.githubusercontent.com/render/math?math=P_1"> и <img src="https://render.githubusercontent.com/render/math?math=P_2"> - соответственно эксплуатационные расходы до и после внедрения разрабатываемой программы; <img src="https://render.githubusercontent.com/render/math?math=\delta P_p"> - экономия от повышения производительности труда дополнительных пользователей.
 
-
-
-Нижняя граница <img src="https://render.githubusercontent.com/render/math?math=E_p">:
 
 Капитальные затраты на внедрение оцениваются как:
 <img src="https://render.githubusercontent.com/render/math?math=K = M \times 10^6,">
