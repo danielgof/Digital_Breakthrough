@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ServerAPI_POST } from '../../libs/ServerAPI';
 import getClassName from "../../libs/GetCSS"
 import cs from './Auth.module.css'
@@ -7,7 +7,6 @@ import cs from './Auth.module.css'
 const RegisterPage = () => {
 	const navigate 						= useNavigate();
 	const [email, 		setEmail] 		= useState("");
-	const [nickname, 	setNickname] 	= useState("");
 	const [name, 		setName] 		= useState("");
 	const [password1, 	setPassword1] 	= useState("");
 	const [password2, 	setPassword2] 	= useState("");
@@ -20,7 +19,6 @@ const RegisterPage = () => {
 			url : "/register",
 			sendObj : {
 				email : email,
-				nickname : nickname,
 				name : name,
 				password1 : password1,
 				password2 : password2

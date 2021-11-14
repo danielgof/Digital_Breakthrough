@@ -22,18 +22,7 @@ const ServerAPI = ({url, method, urlParams, sendObj, onDataReceived, handleStatu
 		})
 	})
 }
-//.then(responce => {
-//	const data = responce.json()
-//	handleStatus && handleStatus(responce.status, responce.json())
-//	if (responce.ok) {
-//		onDataReceived(data)
-//		data.then(() => {
-//			return { data: data, status: responce.status }
-//		})
-//	}
-//})
 
-// Example: ServerAPI_GET({ url : '/yor_url', onDataReceived : (data) => { handleData(data) } })
 export const ServerAPI_GET = ({ url, urlParams, sendObj, onDataReceived, handleStatus, headers }) => {
 	ServerAPI({
 		method : 'GET',
@@ -46,7 +35,6 @@ export const ServerAPI_GET = ({ url, urlParams, sendObj, onDataReceived, handleS
 	})
 }
 
-// Example: ServerAPI_POST({ url : '/your_url', sendObj : your_object, onDataReceived : (data) => { handleData(data) } })
 export const ServerAPI_POST = ({ url, urlParams, sendObj, onDataReceived, handleStatus, headers }) => {
 	ServerAPI({
 		method : 'POST',
@@ -59,7 +47,18 @@ export const ServerAPI_POST = ({ url, urlParams, sendObj, onDataReceived, handle
 	})
 }
 
-// Example: ServerAPI_POST({ url : '/your_url' })
+export const ServerAPI_PATCH = ({ url, urlParams, sendObj, onDataReceived, handleStatus, headers }) => {
+	ServerAPI({
+		method : 'PATCH',
+		url : url,
+		urlParams : urlParams,
+		sendObj : sendObj,
+		onDataReceived : onDataReceived,
+		handleStatus : handleStatus,
+		headers : headers || { 'Content-Type': 'application/json; charset=UTF-8' }
+	})
+}
+
 export const ServerAPI_DELETE = ({ url, urlParams, sendObj, onDataReceived, handleStatus, headers }) => {
 	ServerAPI({
 		method : 'DELETE',

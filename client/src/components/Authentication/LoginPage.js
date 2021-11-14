@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate  } from "react-router-dom";
-import { loadUserInfo, setLoginContext } from '../../contexts/LoginContext'
+import { loadUserInfo } from '../../contexts/LoginContext'
 import { ServerAPI_POST } from '../../libs/ServerAPI'
 import getClassName from "../../libs/GetCSS"
 import cs from './Auth.module.css'
@@ -28,7 +28,7 @@ const LoginPage = () => {
 				else if (res.isOk)
 				{
 					loadUserInfo()
-					navigate("/")
+					navigate("/profile")
 				}
 			}
 		})

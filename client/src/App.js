@@ -4,7 +4,7 @@ import { LoginContext, loadUserInfo, setLoginContextChange } from './contexts/Lo
 import HomePage from './components/Pages/HomePage';
 import LoginPage from './components/Authentication/LoginPage';
 import RegisterPage from './components/Authentication/RegisterPage';
-import ProfilePage from './components/Authentication/ProfilePage';
+import ProfilePage from './components/Authentication/Profile/ProfilePage';
 import PageNotFound from './components/PageNotFound';
 import "./App.css"
 
@@ -27,7 +27,7 @@ function App() {
 						<Route path="/" 	end	 	element={<HomePage 		/>} />
 						<Route path="/login" 		element={<LoginPage		/>} />
 						<Route path="/register" 	element={<RegisterPage 	/>} />
-						<Route path="/profile" 		element={<ProfilePage 	/>} />
+						<Route path="/profile/*" 	element={<ProfilePage 	/>} />
 						<Route path="*"				element={<PageNotFound 	/>} />
 					</Routes>
 				</div>
