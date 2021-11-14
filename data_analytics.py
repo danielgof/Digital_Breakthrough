@@ -32,10 +32,10 @@ reg_pollutant = pd.read_excel("Data/reg_pollutant.xlsx")
 egrul['Вид деятельности'].unique()
 
 
-place = '454080, г. Челябинск, п. Мелькомбинат 2 участок 1, д. 37'
-location = GoogleV3(api_key="AIzaSyApxlxXIdRM9sWefCgQNHTdCewnxkccb_Q", domain="maps.google.ru").geocode(place)
-print(location.address)
-print(location.latitude, location.longitude)
+# place = '454080, г. Челябинск, п. Мелькомбинат 2 участок 1, д. 37'
+# location = GoogleV3(api_key="AIzaSyApxlxXIdRM9sWefCgQNHTdCewnxkccb_Q", domain="maps.google.ru").geocode(place)
+# print(location.address)
+# print(location.latitude, location.longitude)
 
 data_address = list(egrul['Адрес'])
 
