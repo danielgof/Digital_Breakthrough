@@ -110,7 +110,13 @@ class detection:
         return [x2, y2]
 
 
-    def detector(coor_x_y, r, data_address):
-        square_dist = (coor_x_y[0] - data_address[5][0]) ** 2 + (coor_x_y[1] - data_address[5][1]) ** 2
-        if square_dist <= r:
-            in_circle.append(data_address[5])
+    def detector(x2, y2, r, data_address):
+        in_circle = []
+        for address in data_address:
+            square_dist = (x2 - data_address[address][0]) + (y2 - data_address[address][1])** 2
+            if square_dist <= r:
+                in_circle.append(data_address[address])
+            else:
+                pass
+
+       
