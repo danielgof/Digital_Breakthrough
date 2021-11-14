@@ -1,13 +1,8 @@
-# -*- coding: utf-8 -*-
-
-# -- Sheet --
-
 import pandas as pd
 import seaborn as sns
 # import nltk
 # import string
 import difflib
-!pip install geopy
 from pyproj import Proj, transform
 from geopy import GoogleV3
 from sklearn import tree
@@ -100,3 +95,22 @@ for elm in bad_performances_in_circle:
         print("This factory must be checked")
 
 
+class detection:
+    def __init__(self, latitude, longitude, r):
+        self.latitude = latitude
+        self.longitude = longitude
+        self.r = r
+
+
+    def to_x_and_y(latitude, longitude):
+        inProj = Proj(init='epsg:3857')
+        outProj = Proj(init='epsg:4326')
+        x1, y1 = latitude, longitude
+        x2, y2 = transform(inProj, outProj, x1 ,y1)
+        return [x2, y2]
+
+
+    def detector(coor_x_y, r, data_address):
+        square_dist = (coor_x_y[0] - data_address[5][0]) ** 2 + (coor_x_y[1] - data_address[5][1]) ** 2
+        if square_dist <= r:
+            in_circle.append(data_address[5])
