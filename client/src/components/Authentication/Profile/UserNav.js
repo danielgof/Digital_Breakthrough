@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 
 const UserNav = () => {
 	return (
-		<div>
-			<Link to=""> Мои запросы </Link>
+		<div className="mb-1">
+			<Link to="mymessages"> Мои запросы </Link>
 		</div>
 	)
 }

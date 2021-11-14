@@ -6,8 +6,17 @@ import datetime
 
 from RedisLogin import RedisLogin
 from authentication import User
+from DBlib import DataBase
 
-RL = RedisLogin()
+f = open('local.config', 'r')
+isDocker = f.read(1) == "1"
+redishost = "localhost"
+if isDocker:
+	redishost = "redis"
+print(redishost)
+
+DB = DataBase("lanhelen.asuscomm.com", "daniel", "Daniel123!", "chel_bd")
+RL = RedisLogin(host=redishost)
 
 app = Flask(__name__)
 app.secret_key = "my super duper puper secret key!"
@@ -64,7 +73,7 @@ def porfileInfo():
 @login_required
 def logout():
 	logout_user()
-	return jsonify({ "res" : "User Logout!" })
+	return jsonify({ "message" : "User Logout!" })
 
 
 @app.route("/register", methods=["POST"])
@@ -90,10 +99,141 @@ def register():
 			"password"			: hashPwd,
 			"name"				: name, 
 			"registration_date" : str(datetime.datetime.now().date()),
-			"level" 			: 0 
+			"level" 			: 1 if email == "insp@mail.ru" else 0
 		})
 
 	return make_response(jsonify({ "message" : "User Registered!" }), 201)
+
+
+@app.route("/messages", methods=["GET"])
+@login_required
+def get_messages():
+	email = current_user.GetEmail()
+	messages = DB.GetTableJson("messages", where=f"email='{email}'")
+	
+	return jsonify({ "messages" : messages })
+
+
+@app.route("/messages", methods=["POST"])
+@login_required
+def post_message():
+	if not request.json:
+		abort(400)
+
+	email 	= current_user.GetEmail()
+	address = request.json.get("address")
+	message	= request.json.get("text")
+
+	if not (address or message):
+		return make_response(jsonify({ "message" : "Fill all fields!" }), 422)
+	
+	DB.AddTableElement("messages", {
+		"email" : email,
+		"address" : address,
+		"state" : 0,
+		"message" : message,
+		"date" : str(datetime.datetime.now().date())
+	})
+
+	return jsonify({ "message" : "Запрос отправлен!" })
+
+@app.route("/messages", methods=["PATCH"])
+@login_required
+def patch_message():
+	if not request.json:
+		abort(400)
+
+	id = request.json.get("id")
+	comment = request.json.get("comment")
+	state	= request.json.get("state")
+
+	if not id:
+		make_response(jsonify({ "message" : "No message id!" }), 400)
+
+	if not comment and not state:
+		make_response(jsonify({ "message" : "No fields to change!" }), 400)
+	
+	data = {}
+	if comment != None:
+		data.update({ "comment" : comment })
+	if state != None:
+		state = max(min(state, 3), 0)
+		data.update({ "state" : state })
+
+	DB.UpdateTableElement("messages", data, f"id='{id}'")
+
+	return jsonify({ "message" : "Запрос отправлен!" })
+
+
+@app.route("/messages/new", methods=["GET"])
+@login_required
+def get_messagesNew():
+	if not current_user.IsInspector():
+		return make_response(jsonify({ "message" : "Forbidden!" }), 403)
+
+	messages = DB.GetTableJson("messages", where="state='0'")
+	
+	return jsonify({ "messages" : messages })
+
+
+@app.route("/messages/proc", methods=["GET"])
+@login_required
+def get_messagesProc():
+	if not current_user.IsInspector():
+		return make_response(jsonify({ "message" : "Forbidden!" }), 403)
+
+	messages = DB.GetTableJson("messages", where="state='1'")
+	
+	return jsonify({ "messages" : messages })
+
+
+@app.route("/messages/end", methods=["GET"])
+@login_required
+def get_messagesEnd():
+	if not current_user.IsInspector():
+		return make_response(jsonify({ "message" : "Forbidden!" }), 403)
+
+	messages = DB.GetTableJson("messages", where="state>'1'")
+	
+	return jsonify({ "messages" : messages })
+
+
+@app.route("/messages/<id>", methods=["GET"])
+@login_required
+def get_message(id):
+	if not current_user.IsInspector():
+		return make_response(jsonify({ "message" : "Forbidden!" }), 403)
+
+	messages = DB.GetTableJson("messages", where=f"id='{id}'")
+
+	if len(messages) == 0:
+		return make_response(jsonify({ "message" : "Can't find message!" }), 404)
+	
+	return jsonify({ "message" : messages[0] })
+
+
+@app.route("/find", methods=["POST"])
+@login_required
+def find():
+	if not request.json:
+		abort(400)
+
+	if not current_user.IsInspector():
+		return make_response(jsonify({ "message" : "Forbidden!" }), 403)
+
+	markers = request.json.get("markers")
+
+	if not markers:
+		return make_response(jsonify({ "message" : "Нет точки отсчета!" }), 422)
+
+	if len(markers) == 0:
+		return make_response(jsonify({ "message" : "Нет точки отсчета!" }), 422)
+		
+	print(markers)
+	
+	badGuys = [{"name" : "name bla1", "address" : "test address 1"}, {"name" : "test name two",  "address" : "some long address here!!!"}]
+
+	return jsonify({ "badGuys" : badGuys })
 
 
 if __name__ == "__main__":

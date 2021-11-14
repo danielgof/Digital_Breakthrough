@@ -1,0 +1,14 @@
+.form {
+	max-width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.trSelect {
+	outline: none;
+	text-decoration: none;
+}
+
+.trSelect:hover {
+	cursor: pointer;
+}

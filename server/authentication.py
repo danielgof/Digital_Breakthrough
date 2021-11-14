@@ -41,3 +41,6 @@ class User:
 		return self.data["registration_date"]
 	def GetLevel(self):
 		return self.data["level"]
+
+	def IsInspector(self):
+		return self.data["level"] == "1"
