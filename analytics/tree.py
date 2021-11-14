@@ -23,9 +23,10 @@ class tree:
         return [X_train, X_test, y_train, y_test]
 
 
-        def get_results(X_train, X_test, y_train, y_test):
-            max_depth_values = range(1, 40)
-            scores_data = pd.DataFrame()
+    def get_results(X_train, X_test, y_train, y_test):
+
+        max_depth_values = range(1, 40)
+        scores_data = pd.DataFrame()
 
         for max_depth in max_depth_values:
             clf = tree.DecisionTreeClassifier(criterion="entropy", max_depth=max_depth)
@@ -41,8 +42,10 @@ class tree:
 
             scores_data = scores_data.append(temp_score_data)
 
-            scores_data_long = pd.melt(scores_data, id_vars = ['max_depth'], value_vars = ['train_score','test_score'], var_name = 'set_type', value_name = 'score')
-            return scores_data_long
+                
+        scores_data_long = pd.melt(scores_data, id_vars = ['max_depth'], value_vars = ['train_score','test_score'], var_name = 'set_type', value_name = 'score')
+        return scores_data_long
+
 
     def get_best(X_train, y_train):
         parameters = {'max_depth': range(3, 400)}
@@ -50,6 +53,7 @@ class tree:
         clf.fit(X_train, y_train)
         tree_model = clf.best_estimator_
         return clf.best_score_, clf.best_params_ 
+
 
     def paint(x, y, hue, data):
         sns.lineplot(x=x, y=y, hue=hue, data=data)
