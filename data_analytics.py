@@ -67,11 +67,6 @@ coor_x_y = to_x_and_y(coord)
 # coor_x_y = list(map(to_x_and_y, coordinates))
 
 
-def in_circle(center_x, center_y, radius, x, y):
-    if square_dist <= radius ** 2:
-
-    return square_dist <= radius ** 2
-
 in_circle = []
 
 def detector(coor_x_y, r, data_address):
