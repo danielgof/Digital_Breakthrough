@@ -4,13 +4,6 @@ from pyproj import Proj, transform
 from geopy import GoogleV3
 
 
-# egrul = pd.read_excel("Data/eg.xlsx")
-# licence1 = pd.read_excel("Data/licence1.xls")
-# licence2 = pd.read_excel("Data/licence2.xls")
-# NVOS = pd.read_excel("Data/NVOS.xlsx")
-# register_of_licenses = pd.read_excel("Data/register_of_licenses.xlsx")
-# reg_pollutant = pd.read_excel("Data/reg_pollutant.xlsx")
-
 
 
 
@@ -20,7 +13,7 @@ class detection:
         self.longitude = longitude
         self.r = r
 
-
+    """приведение широты и долготы к нормальным координатам"""
     def to_x_and_y(latitude, longitude):
         inProj = Proj(init='epsg:3857')
         outProj = Proj(init='epsg:4326')
@@ -28,7 +21,7 @@ class detection:
         x2, y2 = transform(inProj, outProj, x1 ,y1)
         return [x2, y2]
 
-
+    """проверка на нахождение предприятия в выделенном круге, координаты придприятий вязты из колонки с одресами предприятий из таблицы egrul"""
     def detector(x_c, y_c, r, data_address):
         in_circle = []
         for address in data_address:
@@ -38,14 +31,14 @@ class detection:
             else:
                 pass
     
-
+    """сравнение двух строк на идентичность, возвращает процент идентичности"""
     def similarity(s1, s2):
         normalized1 = s1.lower()
         normalized2 = s2.lower()
         matcher = difflib.SequenceMatcher(None, normalized1, normalized2)
         return matcher.ratio()
     
-
+    """конвертация строки адреса в долготу и широту, на выходе массив координат"""
     def convert(address):
         location = GoogleV3(api_key="AIzaSyApxlxXIdRM9sWefCgQNHTdCewnxkccb_Q", domain="maps.google.ru").geocode(address)
         return [location.latitude, location.longitude]
@@ -57,6 +50,24 @@ test_data = [55.1696515, 61.34494420000001]
 test = detection.convert("454080, г. Челябинск, п. Мелькомбинат 2 участок 1, д. 37")
 
 print(test)
+
+
+
+
+
+
+
+
+# egrul = pd.read_excel("Data/eg.xlsx")
+# licence1 = pd.read_excel("Data/licence1.xls")
+# licence2 = pd.read_excel("Data/licence2.xls")
+# NVOS = pd.read_excel("Data/NVOS.xlsx")
+# register_of_licenses = pd.read_excel("Data/register_of_licenses.xlsx")
+# reg_pollutant = pd.read_excel("Data/reg_pollutant.xlsx")
+
+
+
+
 
 
 
