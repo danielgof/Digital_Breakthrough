@@ -49,9 +49,6 @@ ____
 где <img src="https://render.githubusercontent.com/render/math?math=P_1"> и <img src="https://render.githubusercontent.com/render/math?math=P_2"> - соответственно эксплуатационные расходы до и после внедрения разрабатываемой программы; <img src="https://render.githubusercontent.com/render/math?math=\delta P_p"> - экономия от повышения производительности труда дополнительных пользователей.
 
 
-
-Нижняя граница <img src="https://render.githubusercontent.com/render/math?math=E_p">:
-
 Капитальные затраты на внедрение оцениваются как:
 <img src="https://render.githubusercontent.com/render/math?math=K = M \times 10^6,">
 где <img src="https://render.githubusercontent.com/render/math?math=M"> - количество месяцев на реализацию, <img src="https://render.githubusercontent.com/render/math?math=10^6"> - стоимость разработки. 
