@@ -29,13 +29,7 @@ register_of_licenses = pd.read_excel("Data/register_of_licenses.xlsx")
 reg_pollutant = pd.read_excel("Data/reg_pollutant.xlsx")
 
 
-
 egrul['Вид деятельности'].unique()
-
-print(egrul.columns.values)
-
-
-
 
 
 place = '454080, г. Челябинск, п. Мелькомбинат 2 участок 1, д. 37'
@@ -52,8 +46,8 @@ def convert(address):
 
 coord = convert(data_address[1])
 
-print(coord)
-print(type(coord))
+# print(coord)
+# print(type(coord))
 
 # долгота и широта адресов преприятий
 coordinates = list(map(convert, data_address))
@@ -67,7 +61,10 @@ def to_x_and_y(coordinates):
     return [x2, y2]
 
 
-coor_x_y = list(map(to_x_and_y, coordinates))
+coor_x_y = to_x_and_y(coord)
+
+
+# coor_x_y = list(map(to_x_and_y, coordinates))
 
 
 def in_circle(center_x, center_y, radius, x, y):
@@ -75,13 +72,17 @@ def in_circle(center_x, center_y, radius, x, y):
 
     return square_dist <= radius ** 2
 
-def detector(x_c, y_c, r, coor_x_y):
-    square_dist = (x_c - x) ** 2 + (y_c - y) ** 2
+in_circle = []
+
+def detector(coor_x_y, r, data_address):
+    square_dist = (coor_x_y[0] - data_address[5][0]) ** 2 + (coor_x_y[1] - data_address[5][1]) ** 2
+    if square_dist <= r:
+        in_circle.append(data_address[5])
 
 
 
-
-bad_performances = ['обработка металлов', 'обращение с отходами', '']
+bad_performances = ['обработка металлов', 'обращение с отходами']
+bad_performances_in_circle = []
 
 def similarity(s1, s2):
     normalized1 = s1.lower()
@@ -89,5 +90,18 @@ def similarity(s1, s2):
     matcher = difflib.SequenceMatcher(None, normalized1, normalized2)
     return matcher.ratio()
 
-similarity(df[2], data[0])
+sim = similarity(bad_performances[1], data_address[5])
+if sim > 0.35:
+    bad_performances_in_circle.append(data_address[5])
+else:
+    pass
+
+reg_factories = list(NVOS['Наименование объекта'])
+
+for elm in bad_performances_in_circle:
+    if elm in reg_factories:
+        print("Everuthing is all rigth")
+    else:
+        print("This factory must be checked")
+
 
