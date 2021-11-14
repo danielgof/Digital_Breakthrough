@@ -1,12 +1,6 @@
-# -*- coding: utf-8 -*-
-
-# -- Sheet --
-
 import pandas as pd
 import seaborn as sns
 import difflib
-# !pip install geopy
-from geopy import GoogleV3
 from sklearn import tree
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import train_test_split
